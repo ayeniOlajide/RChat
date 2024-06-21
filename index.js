@@ -1,6 +1,6 @@
 const express = require('express');
-const { createServer } = require('node:http');
-const { join } = require('node:path');
+const { createServer } = require('http');
+const { join } = require('path');
 const { Server } = require('socket.io');
 
 const app = express();
@@ -8,7 +8,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.use(express.static('public'));
-app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'index.html'));
@@ -112,7 +112,7 @@ app.post('/chat', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-const HOST = '127.0.0.1';
+const HOST = '0.0.0.0';
 
 server.listen(PORT, HOST, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
